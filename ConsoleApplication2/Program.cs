@@ -1,7 +1,7 @@
-﻿using System;
+﻿using PdfiumViewer;
+using System;
 using System.Drawing.Printing;
 using System.IO;
-using System.Drawing;
 
 namespace SmartPrint
 {
@@ -11,14 +11,18 @@ namespace SmartPrint
         private static string selectedPaperBin;
         private static string selectedPaperName;
         private static string fileToPrint;
-        private static Font printFont;
         private static StreamReader streamToPrint;
-        private static PrintDocument printDocument;
+        private static PrinterSettings printerSettings;
+        private static PageSettings pageSettings;
 
         static void Main(string[] args)
         {
             FetchPrintingOptions();
-            printDocument = new PrintDocument();
+            printerSettings = new PrinterSettings();
+            pageSettings = new PageSettings()
+            {
+                Margins = new Margins(0, 0, 0, 0)
+            };
             bool showMenu = true;
             while (showMenu)
             {
@@ -111,7 +115,7 @@ namespace SmartPrint
             var settings = new IniFile("Settings.ini");
             selectedPrinter = PrinterSettings.InstalledPrinters[selectedOption];
             settings.Write("printerName", selectedPrinter, "Printer");
-            printDocument.PrinterSettings.PrinterName = selectedPrinter;
+            printerSettings.PrinterName = selectedPrinter;
         }
  
         private static void AvailablePaperBin()
@@ -119,16 +123,16 @@ namespace SmartPrint
             Console.Clear();
             Console.WriteLine("Available paper bin:");
 
-            bool skipPaperSource = printDocument.PrinterSettings.PaperSources.Count == 0;
+            bool skipPaperSource = printerSettings.PaperSources.Count == 0;
             if (skipPaperSource)
             {
                 Console.WriteLine("0) DEFAULT");
             }
             else
             {
-                for (int i = 0; i < printDocument.PrinterSettings.PaperSources.Count; i++)
+                for (int i = 0; i < printerSettings.PaperSources.Count; i++)
                 {
-                    Console.WriteLine("{0}) {1}", i, printDocument.PrinterSettings.PaperSources[i].SourceName.ToUpper());
+                    Console.WriteLine("{0}) {1}", i, printerSettings.PaperSources[i].SourceName.ToUpper());
                 }
             }
 
@@ -136,7 +140,7 @@ namespace SmartPrint
             do
             {
                 Int32.TryParse(CaptureInput(), out selectedOption);
-            } while (selectedOption < 0 || (!skipPaperSource && selectedOption >= printDocument.PrinterSettings.PaperSources.Count));
+            } while (selectedOption < 0 || (!skipPaperSource && selectedOption >= printerSettings.PaperSources.Count));
 
             var settings = new IniFile("Settings.ini");
             if (skipPaperSource)
@@ -145,7 +149,7 @@ namespace SmartPrint
             }
             else
             {
-                selectedPaperBin = printDocument.PrinterSettings.PaperSources[selectedOption].SourceName.ToUpper();
+                selectedPaperBin = printerSettings.PaperSources[selectedOption].SourceName.ToUpper();
             }
             settings.Write("PaperBin", selectedPaperBin, "Printer");
         }
@@ -155,9 +159,9 @@ namespace SmartPrint
             Console.Clear();
             Console.WriteLine("Available paper names:");
 
-            for (int i = 0; i < printDocument.PrinterSettings.PaperSizes.Count; i++)
+            for (int i = 0; i < printerSettings.PaperSizes.Count; i++)
             {
-                Console.WriteLine("{0}) {1}", i, printDocument.PrinterSettings.PaperSizes[i].PaperName.ToUpper());
+                Console.WriteLine("{0}) {1}", i, printerSettings.PaperSizes[i].PaperName.ToUpper());
             }
 
             int selectedOption;
@@ -165,10 +169,10 @@ namespace SmartPrint
             {
                 Int32.TryParse(CaptureInput(), out selectedOption);
 
-            } while (selectedOption < 0 || selectedOption >= printDocument.PrinterSettings.PaperSizes.Count);
+            } while (selectedOption < 0 || selectedOption >= printerSettings.PaperSizes.Count);
 
             var settings = new IniFile("Settings.ini");
-            selectedPaperName = printDocument.PrinterSettings.PaperSizes[selectedOption].PaperName.ToUpper();
+            selectedPaperName = printerSettings.PaperSizes[selectedOption].PaperName.ToUpper();
             settings.Write("PaperName", selectedPaperName, "Printer");
         }
 
@@ -215,34 +219,60 @@ namespace SmartPrint
 
             if (canPrint)
             {
-                printDocument.PrinterSettings.PrinterName = selectedPrinter;
+                printerSettings.PrinterName = selectedPrinter;
                 streamToPrint = new StreamReader(fileToPrint);
 
                 try
                 {
 
-                    foreach (PaperSource _pSource in printDocument.PrinterSettings.PaperSources)
+
+                    foreach (PaperSource _pSource in printerSettings.PaperSources)
                     {
                         if (_pSource.SourceName.ToUpper() == selectedPaperBin.ToUpper())
                         {
-                            printDocument.DefaultPageSettings.PaperSource = _pSource;
+                            pageSettings.PaperSource = _pSource;
                             break;
                         }
                     }
 
-                    foreach (PaperSize _pSize in printDocument.PrinterSettings.PaperSizes)
+                    foreach (PaperSize _pSize in printerSettings.PaperSizes)
                     {
                         if (_pSize.PaperName.ToUpper() == selectedPaperName.ToUpper())
                         {
-                            printDocument.DefaultPageSettings.PaperSize = _pSize;
+                            pageSettings.PaperSize = _pSize;
                             break;
                         }
                     }
 
-                    printFont = new Font("Verdana", 10);
-                    printDocument.PrintPage += new PrintPageEventHandler(PrintTextFileHandler);
-                    printDocument.Print();
-                    printDocument.Dispose();
+
+                    //----------
+
+
+
+                    using (PdfDocument pdfDocument = PdfDocument.Load(fileToPrint))
+                    {
+                        using (PrintDocument printDocument = pdfDocument.CreatePrintDocument())
+                        {
+                            printDocument.PrinterSettings = printerSettings;
+                            printDocument.DefaultPageSettings = pageSettings;
+                            printDocument.PrintController = new StandardPrintController();
+                            printDocument.Print();
+                        }
+                    }
+
+
+                    //----------
+
+
+                    //-----
+
+                    // Create an instance of the Printer
+                    //IPrinter printer = new Printer();
+
+                    // Print the file
+                    //printer.PrintRawFile(selectedPrinter, fileToPrint, Path.GetFileNameWithoutExtension(fileToPrint));
+
+                    //-----
 
                     Console.WriteLine("File sent to the printer");
                 }
@@ -260,38 +290,5 @@ namespace SmartPrint
             Console.WriteLine("\r\nPress any key to continue...");
             Console.ReadKey();
         }
-        private static void PrintTextFileHandler(object sender, PrintPageEventArgs ppeArgs)
-        {
-            //Get the Graphics object  
-            Graphics g = ppeArgs.Graphics;
-            float linesPerPage = 0;
-            float yPos = 0;
-            int count = 0;
-            //Read margins from PrintPageEventArgs  
-            float leftMargin = ppeArgs.MarginBounds.Left;
-            float topMargin = ppeArgs.MarginBounds.Top;
-            string line = null;
-            //Calculate the lines per page on the basis of the height of the page and the height of the font  
-            linesPerPage = ppeArgs.MarginBounds.Height / printFont.GetHeight(g);
-            //Now read lines one by one, using StreamReader  
-            while (count < linesPerPage && ((line = streamToPrint.ReadLine()) != null))
-            {
-                //Calculate the starting position  
-                yPos = topMargin + (count * printFont.GetHeight(g));
-                //Draw text  
-                g.DrawString(line, printFont, Brushes.Black, leftMargin, yPos, new StringFormat());
-                //Move to next line  
-                count++;
-            }
-            //If PrintPageEventArgs has more pages to print  
-            if (line != null)
-            {
-                ppeArgs.HasMorePages = true;
-            }
-            else
-            {
-                ppeArgs.HasMorePages = false;
-            }
-        } 
     }
 }
