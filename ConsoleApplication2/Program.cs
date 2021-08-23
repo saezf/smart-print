@@ -11,7 +11,6 @@ namespace SmartPrint
         private static string selectedPaperBin;
         private static string selectedPaperName;
         private static string fileToPrint;
-        private static StreamReader streamToPrint;
         private static PrinterSettings printerSettings;
         private static PageSettings pageSettings;
 
@@ -187,6 +186,7 @@ namespace SmartPrint
         }
         private static void Print()
         {
+            Console.Clear();
             bool canPrint = true;
             
             // Validate selectedPrinter
@@ -220,71 +220,36 @@ namespace SmartPrint
             if (canPrint)
             {
                 printerSettings.PrinterName = selectedPrinter;
-                streamToPrint = new StreamReader(fileToPrint);
-
-                try
+                foreach (PaperSource _pSource in printerSettings.PaperSources)
                 {
-
-
-                    foreach (PaperSource _pSource in printerSettings.PaperSources)
+                    if (_pSource.SourceName.ToUpper() == selectedPaperBin.ToUpper())
                     {
-                        if (_pSource.SourceName.ToUpper() == selectedPaperBin.ToUpper())
-                        {
-                            pageSettings.PaperSource = _pSource;
-                            break;
-                        }
+                        pageSettings.PaperSource = _pSource;
+                        break;
                     }
-
-                    foreach (PaperSize _pSize in printerSettings.PaperSizes)
-                    {
-                        if (_pSize.PaperName.ToUpper() == selectedPaperName.ToUpper())
-                        {
-                            pageSettings.PaperSize = _pSize;
-                            break;
-                        }
-                    }
-
-
-                    //----------
-
-
-
-                    using (PdfDocument pdfDocument = PdfDocument.Load(fileToPrint))
-                    {
-                        using (PrintDocument printDocument = pdfDocument.CreatePrintDocument())
-                        {
-                            printDocument.PrinterSettings = printerSettings;
-                            printDocument.DefaultPageSettings = pageSettings;
-                            printDocument.PrintController = new StandardPrintController();
-                            printDocument.Print();
-                        }
-                    }
-
-
-                    //----------
-
-
-                    //-----
-
-                    // Create an instance of the Printer
-                    //IPrinter printer = new Printer();
-
-                    // Print the file
-                    //printer.PrintRawFile(selectedPrinter, fileToPrint, Path.GetFileNameWithoutExtension(fileToPrint));
-
-                    //-----
-
-                    Console.WriteLine("File sent to the printer");
                 }
-                catch (Exception ex)
+
+                foreach (PaperSize _pSize in printerSettings.PaperSizes)
                 {
-                    Console.WriteLine(ex.ToString());
+                    if (_pSize.PaperName.ToUpper() == selectedPaperName.ToUpper())
+                    {
+                        pageSettings.PaperSize = _pSize;
+                        break;
+                    }
                 }
-                finally
+
+                using (PdfDocument pdfDocument = PdfDocument.Load(fileToPrint))
                 {
-                    if (streamToPrint != null)
-                        streamToPrint.Close();
+                    using (PrintDocument printDocument = pdfDocument.CreatePrintDocument())
+                    {
+                        printDocument.PrinterSettings = printerSettings;
+                        printDocument.DefaultPageSettings = pageSettings;
+                        printDocument.PrintController = new StandardPrintController();
+                        printDocument.Print();
+                    }
                 }
+
+                Console.WriteLine("File sent to the printer");
             }
 
             Console.WriteLine("\r\nPress any key to continue...");
