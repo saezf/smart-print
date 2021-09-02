@@ -31,22 +31,31 @@ namespace testForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-          var selected = settings.Read("printerName", "Printer");
+            var selected = settings.Read("printerName", "Printer");
+            printerSettings.PrinterName = selected;
+            bool skipPaperSourceP = printerSettings.PaperSources.Count == 0;
+            if (skipPaperSourceP)
+            {
+                selectedPaperBin = "DEFAULT";
+                settings.Write("PaperBin", selectedPaperBin, "Printer");
+                lblPaperBinSelected.Text = selectedPaperBin;
+            }
 
             // Cargar combobox printers
-            
-            lblPrinterSelected.Text = settings.Read("printerName", "Printer");
-                List<string> printer = new List<string>();
-                printer.Add("CHANGE PRINTER");
-                for (int i = 1; i < PrinterSettings.InstalledPrinters.Count; i++)
-                {
-                    printer.Add(PrinterSettings.InstalledPrinters[i]);
-                }
-                comboBox1.DataSource = printer;
+
+            lblPrinterSelected.Text = selected;
+            List<string> printer = new List<string>();
+            printer.Add("CHANGE PRINTER");
+            for (int i = 1; i < PrinterSettings.InstalledPrinters.Count; i++)
+            {
+                printer.Add(PrinterSettings.InstalledPrinters[i]);
+            }
+            comboBox1.DataSource = printer;
 
             // cargar combo box papersource
             lblPaperBinSelected.Text = settings.Read("PaperBin", "Printer");
             List<string> paperbin = new List<string>();
+            paperbin.Add("CHANGE PAPER BIN");
 
             bool skipPaperSource = printerSettings.PaperSources.Count == 0;
             if (skipPaperSource)
@@ -56,8 +65,6 @@ namespace testForms
             }
             else
             {
-                paperbin.Add("CHANGE PAPER BIN");
-
                 for (int i = 1; i < printerSettings.PaperSources.Count; i++)
                 {
                     paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
@@ -76,14 +83,17 @@ namespace testForms
             }
             comboBox3.DataSource = paper;
         }
-        
+
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
 
             int selectedOption = comboBox1.SelectedIndex;
-            selectedPrinter = PrinterSettings.InstalledPrinters[selectedOption];
+            if (!selectedOption.Equals("CHANGE PRINTER"))
+            {
+                selectedPrinter = PrinterSettings.InstalledPrinters[selectedOption];
+            }
             settings.Write("printerName", selectedPrinter, "Printer");
-            
+
             lblPrinterSelected.Text = selectedPrinter;
 
             printerSettings.PrinterName = selectedPrinter;
@@ -101,7 +111,10 @@ namespace testForms
             }
             else
             {
+                if (!selectedOption.Equals("CHANGE PAPER BIN"))
+                {
                 selectedPaperBin = printerSettings.PaperSources[selectedOption].SourceName.ToUpper();
+                }
             }
             settings.Write("PaperBin", selectedPaperBin, "Printer");
             lblPaperBinSelected.Text = selectedPaperBin;
@@ -111,8 +124,10 @@ namespace testForms
         {
 
             int selectedOption = comboBox3.SelectedIndex;
-            selectedPaperName = printerSettings.PaperSizes[selectedOption].PaperName.ToUpper();
-            
+            if (!selectedOption.Equals("CHANGE PAPER NAME"))
+            {
+                selectedPaperName = printerSettings.PaperSizes[selectedOption].PaperName.ToUpper();
+            }
             settings.Write("PaperName", selectedPaperName, "Printer");
             lblPaperNameSelected.Text = selectedPaperName;
         }
@@ -120,7 +135,7 @@ namespace testForms
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            if(this.WindowState == FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 this.Hide();
                 //notifyIcon1.Icon = SystemIcons.Application;
@@ -128,7 +143,7 @@ namespace testForms
                 //notifyIcon1.ShowBalloonTip(1000);
             }
         }
-        
+
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
@@ -148,7 +163,7 @@ namespace testForms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 txtFileName.Text = openFileDialog1.FileName;
                 fileToPrint = openFileDialog1.FileName;
