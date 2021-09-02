@@ -35,7 +35,7 @@ namespace testForms
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.txtFileName = new System.Windows.Forms.TextBox();
+            this.txtFileToPrint = new System.Windows.Forms.TextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,11 +65,12 @@ namespace testForms
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(13, 215);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "File to print:";
+            this.label4.Text = "File to Print:";
             // 
             // comboBox2
             // 
@@ -89,12 +90,12 @@ namespace testForms
             this.comboBox3.TabIndex = 6;
             this.comboBox3.SelectionChangeCommitted += new System.EventHandler(this.comboBox3_SelectionChangeCommitted);
             // 
-            // txtFileName
+            // txtFileToPrint
             // 
-            this.txtFileName.Location = new System.Drawing.Point(75, 212);
-            this.txtFileName.Name = "txtFileName";
-            this.txtFileName.Size = new System.Drawing.Size(182, 20);
-            this.txtFileName.TabIndex = 8;
+            this.txtFileToPrint.Location = new System.Drawing.Point(86, 212);
+            this.txtFileToPrint.Name = "txtFileToPrint";
+            this.txtFileToPrint.Size = new System.Drawing.Size(179, 20);
+            this.txtFileToPrint.TabIndex = 8;
             // 
             // notifyIcon1
             // 
@@ -128,9 +129,9 @@ namespace testForms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(263, 210);
+            this.button1.Location = new System.Drawing.Point(271, 210);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(53, 23);
+            this.button1.Size = new System.Drawing.Size(45, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Open";
             this.button1.UseVisualStyleBackColor = true;
@@ -139,16 +140,17 @@ namespace testForms
             // lblPrinter
             // 
             this.lblPrinter.AutoSize = true;
+            this.lblPrinter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPrinter.Location = new System.Drawing.Point(13, 47);
             this.lblPrinter.Name = "lblPrinter";
-            this.lblPrinter.Size = new System.Drawing.Size(85, 13);
+            this.lblPrinter.Size = new System.Drawing.Size(102, 13);
             this.lblPrinter.TabIndex = 9;
             this.lblPrinter.Text = "Selected Printer:";
             // 
             // lblPrinterSelected
             // 
             this.lblPrinterSelected.AutoSize = true;
-            this.lblPrinterSelected.Location = new System.Drawing.Point(104, 47);
+            this.lblPrinterSelected.Location = new System.Drawing.Point(111, 47);
             this.lblPrinterSelected.Name = "lblPrinterSelected";
             this.lblPrinterSelected.Size = new System.Drawing.Size(16, 13);
             this.lblPrinterSelected.TabIndex = 10;
@@ -157,16 +159,17 @@ namespace testForms
             // lblPaperBin
             // 
             this.lblPaperBin.AutoSize = true;
+            this.lblPaperBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPaperBin.Location = new System.Drawing.Point(13, 111);
             this.lblPaperBin.Name = "lblPaperBin";
-            this.lblPaperBin.Size = new System.Drawing.Size(101, 13);
+            this.lblPaperBin.Size = new System.Drawing.Size(120, 13);
             this.lblPaperBin.TabIndex = 11;
             this.lblPaperBin.Text = "Selected Paper Bin:";
             // 
             // lblPaperBinSelected
             // 
             this.lblPaperBinSelected.AutoSize = true;
-            this.lblPaperBinSelected.Location = new System.Drawing.Point(120, 111);
+            this.lblPaperBinSelected.Location = new System.Drawing.Point(131, 111);
             this.lblPaperBinSelected.Name = "lblPaperBinSelected";
             this.lblPaperBinSelected.Size = new System.Drawing.Size(16, 13);
             this.lblPaperBinSelected.TabIndex = 12;
@@ -175,16 +178,17 @@ namespace testForms
             // lblPaperName
             // 
             this.lblPaperName.AutoSize = true;
+            this.lblPaperName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPaperName.Location = new System.Drawing.Point(13, 171);
             this.lblPaperName.Name = "lblPaperName";
-            this.lblPaperName.Size = new System.Drawing.Size(114, 13);
+            this.lblPaperName.Size = new System.Drawing.Size(134, 13);
             this.lblPaperName.TabIndex = 13;
             this.lblPaperName.Text = "Selected Paper Name:";
             // 
             // lblPaperNameSelected
             // 
             this.lblPaperNameSelected.AutoSize = true;
-            this.lblPaperNameSelected.Location = new System.Drawing.Point(133, 171);
+            this.lblPaperNameSelected.Location = new System.Drawing.Point(144, 171);
             this.lblPaperNameSelected.Name = "lblPaperNameSelected";
             this.lblPaperNameSelected.Size = new System.Drawing.Size(16, 13);
             this.lblPaperNameSelected.TabIndex = 14;
@@ -194,7 +198,7 @@ namespace testForms
             // 
             this.button2.Location = new System.Drawing.Point(123, 259);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(78, 23);
+            this.button2.Size = new System.Drawing.Size(89, 30);
             this.button2.TabIndex = 15;
             this.button2.Text = "Print";
             this.button2.UseVisualStyleBackColor = true;
@@ -216,7 +220,7 @@ namespace testForms
             this.Controls.Add(this.lblPaperBin);
             this.Controls.Add(this.lblPrinterSelected);
             this.Controls.Add(this.lblPrinter);
-            this.Controls.Add(this.txtFileName);
+            this.Controls.Add(this.txtFileToPrint);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox2);
@@ -225,7 +229,9 @@ namespace testForms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Print";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.contextMenuStrip1.ResumeLayout(false);
@@ -240,7 +246,7 @@ namespace testForms
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox txtFileName;
+        private System.Windows.Forms.TextBox txtFileToPrint;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;

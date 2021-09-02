@@ -82,6 +82,10 @@ namespace testForms
                 paper.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
             }
             comboBox3.DataSource = paper;
+
+            //cargar file to print
+
+            txtFileToPrint.Text = settings.Read("FileToPrint", "Document");
         }
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
@@ -147,7 +151,7 @@ namespace testForms
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
-            notifyIcon1.BalloonTipText = "Formulario restaurado";
+            notifyIcon1.BalloonTipText = "Restored Form";
             notifyIcon1.ShowBalloonTip(1000);
         }
 
@@ -165,9 +169,20 @@ namespace testForms
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                txtFileName.Text = openFileDialog1.FileName;
+                txtFileToPrint.Text = openFileDialog1.FileName;
                 fileToPrint = openFileDialog1.FileName;
                 settings.Write("FileToPrint", fileToPrint, "Document");
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
+            DialogResult dialogResult = MessageBox.Show("The application will close", "Close", buttons, MessageBoxIcon.Information);
+
+            if (dialogResult == DialogResult.Cancel)
+            {
+                e.Cancel = true;
             }
         }
 
