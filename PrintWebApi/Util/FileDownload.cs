@@ -63,7 +63,7 @@ namespace PrintWebApi.Util
             PrinterSettings printerSettings = new PrinterSettings(); 
             PageSettings pageSettings = new PageSettings();
 
-            var settings = new IniFile(@"C:\Smart-Print\smart-print\ConsoleApplication2\bin\Release\Settings.ini");
+            var settings = new IniFile("Settings.ini");
             var selectedPrinter = settings.Read("printerName", "Printer");
             var selectedPaperBin = settings.Read("PaperBin", "Printer");
             var selectedPaperName = settings.Read("PaperName", "Printer");

@@ -43,28 +43,14 @@ namespace PrintWebApi.Controllers
         public ActionResult GetPdfFromUrl(string url)
         {
             var fileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            FileDownload.downloadFileToSpecificPath(url, fileDirectory + @"\" + Path.GetFileName(url).ToString());
+            var fileToPrint = fileDirectory + @"\tmp.pdf";
+            FileDownload.downloadFileToSpecificPath(url, fileToPrint);
             
-            var settings = new IniFile(@"C:\Smart-Print\smart-print\ConsoleApplication2\bin\Release\Settings.ini");
-            var fileToPrint = fileDirectory + @"\" + Path.GetFileName(url);
+            var settings = new IniFile("Settings.ini");
             settings.Write("FileToPrint", fileToPrint, "Document");
 
-            //var selectedPrinter = settings.Read("printerName", "Printer");
-            //var selectedPaperBin = settings.Read("PaperBin", "Printer");
-            //var selectedPaperName = settings.Read("PaperName", "Printer");
-            
             FileDownload.Print();
-
-            /*string[] files = Directory.GetFiles(fileDirectory);
-            foreach (string file in files.Where(
-                        file => file.ToUpper().Contains(".PDF")))
-            {
-                Pdf.PrintPDFs(file);
-            }*/
-
-            //Pdf.PrintPDF(selectedPrinter, selectedPaperName, fileToPrint, 1);
-
-            return Ok("Archivo descargado con exito");
+            return Ok("File sent to printer");
         }
 
         [HttpPost]
