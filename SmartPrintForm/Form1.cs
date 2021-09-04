@@ -26,86 +26,102 @@ namespace testForms
         public Form1()
         {
             InitializeComponent();
-            printerSettings = new PrinterSettings();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var selected = settings.Read("printerName", "Printer");
-            printerSettings.PrinterName = selected;
-            bool skipPaperSourceP = printerSettings.PaperSources.Count == 0;
-            if (skipPaperSourceP)
-            {
-                selectedPaperBin = "DEFAULT";
-                settings.Write("PaperBin", selectedPaperBin, "Printer");
-                lblPaperBinSelected.Text = selectedPaperBin;
-            }
+            printerSettings = new PrinterSettings();
+
+            printerSettings.PrinterName = settings.Read("printerName", "Printer");
 
             // Cargar combobox printers
 
-            lblPrinterSelected.Text = selected;
             List<string> printer = new List<string>();
-            printer.Add("CHANGE PRINTER");
-            for (int i = 1; i < PrinterSettings.InstalledPrinters.Count; i++)
+            for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
             {
                 printer.Add(PrinterSettings.InstalledPrinters[i]);
             }
             comboBox1.DataSource = printer;
+            comboBox1.Text = settings.Read("printerName", "Printer");
 
             // cargar combo box papersource
-            lblPaperBinSelected.Text = settings.Read("PaperBin", "Printer");
             List<string> paperbin = new List<string>();
-            paperbin.Add("CHANGE PAPER BIN");
 
             bool skipPaperSource = printerSettings.PaperSources.Count == 0;
             if (skipPaperSource)
             {
-                paperbin.Add("DEFAULT");
                 selectedPaperBin = "DEFAULT";
             }
             else
             {
-                for (int i = 1; i < printerSettings.PaperSources.Count; i++)
+                for (int i = 0; i < printerSettings.PaperSources.Count; i++)
                 {
                     paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
                 }
+                selectedPaperBin = comboBox2.Text;
             }
             comboBox2.DataSource = paperbin;
+            comboBox2.Text = settings.Read("PaperBin", "Printer");
 
             // cargar combobox paper name
 
-            lblPaperNameSelected.Text = settings.Read("PaperName", "Printer");
             List<string> paper = new List<string>();
-            paper.Add("CHANGE PAPER NAME");
-            for (int i = 1; i < printerSettings.PaperSizes.Count; i++)
+            for (int i = 0; i < printerSettings.PaperSizes.Count; i++)
             {
                 paper.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
             }
             comboBox3.DataSource = paper;
+            comboBox3.Text = settings.Read("PaperName", "Printer");
 
-            //cargar file to print
+            //cargar archivo
 
             txtFileToPrint.Text = settings.Read("FileToPrint", "Document");
         }
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
-
             int selectedOption = comboBox1.SelectedIndex;
-            if (!selectedOption.Equals("CHANGE PRINTER"))
-            {
-                selectedPrinter = PrinterSettings.InstalledPrinters[selectedOption];
-            }
-            settings.Write("printerName", selectedPrinter, "Printer");
 
-            lblPrinterSelected.Text = selectedPrinter;
-
+            selectedPrinter = PrinterSettings.InstalledPrinters[selectedOption];
             printerSettings.PrinterName = selectedPrinter;
+
+            settings.Write("printerName", selectedPrinter, "Printer");
+            comboBox1.Text = selectedPrinter;
+
+            //cargar de nuevo paper bin
+            List<string> paperbin = new List<string>();
+            for (int i = 0; i < printerSettings.PaperSources.Count; i++)
+            {
+                paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
+            }
+            comboBox2.DataSource = paperbin;
+
+            //evaluar paper bin == 0
+            bool skipPaperSourceP = printerSettings.PaperSources.Count == 0;
+            if (skipPaperSourceP)
+            {
+                selectedPaperBin = "DEFAULT";
+                settings.Write("PaperBin", selectedPaperBin, "Printer");
+                comboBox2.Text = selectedPaperBin;
+            }
+
+            selectedPaperBin = comboBox2.Text;
+            settings.Write("PaperBin", selectedPaperBin, "Printer");
+
+            // cargar de nuevo paper name
+            List<string> paper = new List<string>();
+            for (int i = 0; i < printerSettings.PaperSizes.Count; i++)
+            {
+                paper.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
+            }
+            comboBox3.DataSource = paper;
+            comboBox3.Text = settings.Read("PaperName", "Printer");
+            selectedPaperName = comboBox3.Text;
+
         }
 
         private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
         {
-
             int selectedOption = comboBox2.SelectedIndex;
 
             bool skipPaperSource = printerSettings.PaperSources.Count == 0;
@@ -115,25 +131,21 @@ namespace testForms
             }
             else
             {
-                if (!selectedOption.Equals("CHANGE PAPER BIN"))
-                {
                 selectedPaperBin = printerSettings.PaperSources[selectedOption].SourceName.ToUpper();
-                }
+                settings.Write("PaperBin", selectedPaperBin, "Printer");
+                comboBox2.Text = selectedPaperBin;
             }
-            settings.Write("PaperBin", selectedPaperBin, "Printer");
-            lblPaperBinSelected.Text = selectedPaperBin;
+
         }
 
         private void comboBox3_SelectionChangeCommitted(object sender, EventArgs e)
         {
 
             int selectedOption = comboBox3.SelectedIndex;
-            if (!selectedOption.Equals("CHANGE PAPER NAME"))
-            {
-                selectedPaperName = printerSettings.PaperSizes[selectedOption].PaperName.ToUpper();
-            }
+            
+            selectedPaperName = printerSettings.PaperSizes[selectedOption].PaperName.ToUpper();
             settings.Write("PaperName", selectedPaperName, "Printer");
-            lblPaperNameSelected.Text = selectedPaperName;
+            comboBox3.Text = selectedPaperName;
         }
 
 
@@ -190,5 +202,6 @@ namespace testForms
         {
             Functions.Print();
         }
+
     }
 }

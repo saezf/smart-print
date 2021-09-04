@@ -98,6 +98,8 @@
     <None Include="Resources\folder-add_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\iconos-print2-01.png" />
+    <Content Include="Resources\smart_print_ico.ico" />
     <Content Include="x64\pdfium.dll" />
     <Content Include="x86\pdfium.dll" />
   </ItemGroup>
