@@ -46,13 +46,14 @@ namespace testForms
             this.lblPaperName = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(138, 16);
+            this.comboBox1.Location = new System.Drawing.Point(143, 72);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(215, 21);
             this.comboBox1.TabIndex = 1;
@@ -62,7 +63,7 @@ namespace testForms
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 166);
+            this.label4.Location = new System.Drawing.Point(18, 222);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 4;
@@ -71,7 +72,7 @@ namespace testForms
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(138, 59);
+            this.comboBox2.Location = new System.Drawing.Point(143, 115);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(215, 21);
             this.comboBox2.TabIndex = 5;
@@ -80,7 +81,7 @@ namespace testForms
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(138, 101);
+            this.comboBox3.Location = new System.Drawing.Point(143, 157);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(215, 21);
             this.comboBox3.TabIndex = 6;
@@ -88,7 +89,7 @@ namespace testForms
             // 
             // txtFileToPrint
             // 
-            this.txtFileToPrint.Location = new System.Drawing.Point(95, 163);
+            this.txtFileToPrint.Location = new System.Drawing.Point(100, 219);
             this.txtFileToPrint.Name = "txtFileToPrint";
             this.txtFileToPrint.Size = new System.Drawing.Size(207, 20);
             this.txtFileToPrint.TabIndex = 8;
@@ -125,7 +126,7 @@ namespace testForms
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(308, 161);
+            this.button1.Location = new System.Drawing.Point(313, 217);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(45, 23);
             this.button1.TabIndex = 7;
@@ -137,7 +138,7 @@ namespace testForms
             // 
             this.lblPrinter.AutoSize = true;
             this.lblPrinter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrinter.Location = new System.Drawing.Point(13, 19);
+            this.lblPrinter.Location = new System.Drawing.Point(18, 75);
             this.lblPrinter.Name = "lblPrinter";
             this.lblPrinter.Size = new System.Drawing.Size(95, 13);
             this.lblPrinter.TabIndex = 9;
@@ -147,7 +148,7 @@ namespace testForms
             // 
             this.lblPaperBin.AutoSize = true;
             this.lblPaperBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaperBin.Location = new System.Drawing.Point(12, 62);
+            this.lblPaperBin.Location = new System.Drawing.Point(17, 118);
             this.lblPaperBin.Name = "lblPaperBin";
             this.lblPaperBin.Size = new System.Drawing.Size(109, 13);
             this.lblPaperBin.TabIndex = 11;
@@ -157,7 +158,7 @@ namespace testForms
             // 
             this.lblPaperName.AutoSize = true;
             this.lblPaperName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaperName.Location = new System.Drawing.Point(13, 104);
+            this.lblPaperName.Location = new System.Drawing.Point(18, 160);
             this.lblPaperName.Name = "lblPaperName";
             this.lblPaperName.Size = new System.Drawing.Size(123, 13);
             this.lblPaperName.TabIndex = 13;
@@ -165,7 +166,7 @@ namespace testForms
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(138, 215);
+            this.button2.Location = new System.Drawing.Point(143, 271);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 39);
             this.button2.TabIndex = 15;
@@ -177,11 +178,19 @@ namespace testForms
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(143, 32);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(98, 20);
+            this.textBox1.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 266);
+            this.ClientSize = new System.Drawing.Size(376, 328);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblPaperName);
             this.Controls.Add(this.lblPaperBin);
@@ -222,6 +231,7 @@ namespace testForms
         private System.Windows.Forms.Label lblPaperName;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
 
