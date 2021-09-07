@@ -163,13 +163,15 @@ namespace testForms
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             this.Show();
-            notifyIcon1.BalloonTipText = "Restored Form";
-            notifyIcon1.ShowBalloonTip(1000);
+            this.WindowState = FormWindowState.Normal;
+            //notifyIcon1.BalloonTipText = "Restored Form";
+            //notifyIcon1.ShowBalloonTip(1000);
         }
 
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Show();
+            this.WindowState = FormWindowState.Normal;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -203,5 +205,10 @@ namespace testForms
             Functions.Print();
         }
 
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+            this.Hide();
+        }
     }
 }
