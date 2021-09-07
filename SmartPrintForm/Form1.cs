@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -8,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using testForms.Util;
+using SmartPrintForm.Util;
 
-namespace testForms
+namespace SmartPrintForm
 {
     public partial class Form1 : Form
     {
@@ -30,6 +31,9 @@ namespace testForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string puerto = ConfigurationManager.AppSettings["httpsPort"];
+            textBox1.Text = puerto;
+
             printerSettings = new PrinterSettings();
 
             printerSettings.PrinterName = settings.Read("printerName", "Printer");
@@ -88,14 +92,6 @@ namespace testForms
             settings.Write("printerName", selectedPrinter, "Printer");
             comboBox1.Text = selectedPrinter;
 
-            //cargar de nuevo paper bin
-            List<string> paperbin = new List<string>();
-            for (int i = 0; i < printerSettings.PaperSources.Count; i++)
-            {
-                paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
-            }
-            comboBox2.DataSource = paperbin;
-
             //evaluar paper bin == 0
             bool skipPaperSourceP = printerSettings.PaperSources.Count == 0;
             if (skipPaperSourceP)
@@ -104,6 +100,14 @@ namespace testForms
                 settings.Write("PaperBin", selectedPaperBin, "Printer");
                 comboBox2.Text = selectedPaperBin;
             }
+
+            //cargar de nuevo paper bin
+            List<string> paperbin = new List<string>();
+            for (int i = 0; i < printerSettings.PaperSources.Count; i++)
+            {
+                paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
+            }
+            comboBox2.DataSource = paperbin;
 
             selectedPaperBin = comboBox2.Text;
             settings.Write("PaperBin", selectedPaperBin, "Printer");
@@ -210,5 +214,6 @@ namespace testForms
             this.WindowState = FormWindowState.Minimized;
             this.Hide();
         }
+
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PdfiumViewer;
 
-namespace testForms.Util
+namespace SmartPrintForm.Util
 {
     class Functions
     {

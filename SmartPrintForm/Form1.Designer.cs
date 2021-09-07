@@ -1,5 +1,5 @@
 ﻿
-namespace testForms
+namespace SmartPrintForm
 {
     partial class Form1
     {
@@ -47,6 +47,8 @@ namespace testForms
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnChangePort = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -180,16 +182,37 @@ namespace testForms
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(143, 32);
+            this.textBox1.Location = new System.Drawing.Point(154, 34);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(98, 20);
             this.textBox1.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(17, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Corriendo en el puerto:";
+            // 
+            // btnChangePort
+            // 
+            this.btnChangePort.Location = new System.Drawing.Point(258, 33);
+            this.btnChangePort.Name = "btnChangePort";
+            this.btnChangePort.Size = new System.Drawing.Size(75, 23);
+            this.btnChangePort.TabIndex = 18;
+            this.btnChangePort.Text = "Change";
+            this.btnChangePort.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(376, 328);
+            this.Controls.Add(this.btnChangePort);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblPaperName);
@@ -232,7 +255,9 @@ namespace testForms
         private System.Windows.Forms.Label lblPaperName;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnChangePort;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
