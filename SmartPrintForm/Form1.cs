@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using SmartPrintForm.Util;
 
 namespace SmartPrintForm
@@ -31,7 +32,7 @@ namespace SmartPrintForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string puerto = ConfigurationManager.AppSettings["httpsPort"];
+            string puerto = ConfigurationManager.AppSettings["httpPort"];
             textBox1.Text = puerto;
 
             printerSettings = new PrinterSettings();
@@ -215,5 +216,30 @@ namespace SmartPrintForm
             this.Hide();
         }
 
+        private void btnChangePort_Click(object sender, EventArgs e)
+        {
+            string newPort = textBox1.Text.Trim();
+
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+            foreach (XmlElement element in xmlDoc.DocumentElement)
+            {
+                if (element.Name.Equals("appSettings"))
+                {
+                    foreach (XmlNode node in element.ChildNodes)
+                    {
+                        if(node.Attributes[0].Value == "httpPort")
+                        {
+                            node.Attributes[1].Value = newPort;
+                        }
+                    }
+                }
+            }
+
+            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            ConfigurationManager.RefreshSection("appSettings");
+            MessageBox.Show("Se cambio el puerto. Los cambios surtiran efecto la proxima vez que inicie el servicio");
+        }
     }
 }

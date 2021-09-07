@@ -205,6 +205,7 @@ namespace SmartPrintForm
             this.btnChangePort.TabIndex = 18;
             this.btnChangePort.Text = "Change";
             this.btnChangePort.UseVisualStyleBackColor = true;
+            this.btnChangePort.Click += new System.EventHandler(this.btnChangePort_Click);
             // 
             // Form1
             // 
