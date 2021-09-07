@@ -49,15 +49,17 @@ namespace SmartPrintForm
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnChangePort = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblUrls = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(143, 72);
+            this.comboBox1.Location = new System.Drawing.Point(142, 108);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(215, 21);
+            this.comboBox1.Size = new System.Drawing.Size(226, 21);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.SelectionChangeCommitted += new System.EventHandler(this.comboBox1_SelectionChangeCommitted);
             // 
@@ -65,7 +67,7 @@ namespace SmartPrintForm
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 222);
+            this.label4.Location = new System.Drawing.Point(17, 258);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 4;
@@ -74,26 +76,26 @@ namespace SmartPrintForm
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(143, 115);
+            this.comboBox2.Location = new System.Drawing.Point(142, 151);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(215, 21);
+            this.comboBox2.Size = new System.Drawing.Size(226, 21);
             this.comboBox2.TabIndex = 5;
             this.comboBox2.SelectionChangeCommitted += new System.EventHandler(this.comboBox2_SelectionChangeCommitted);
             // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(143, 157);
+            this.comboBox3.Location = new System.Drawing.Point(142, 193);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(215, 21);
+            this.comboBox3.Size = new System.Drawing.Size(226, 21);
             this.comboBox3.TabIndex = 6;
             this.comboBox3.SelectionChangeCommitted += new System.EventHandler(this.comboBox3_SelectionChangeCommitted);
             // 
             // txtFileToPrint
             // 
-            this.txtFileToPrint.Location = new System.Drawing.Point(100, 219);
+            this.txtFileToPrint.Location = new System.Drawing.Point(99, 255);
             this.txtFileToPrint.Name = "txtFileToPrint";
-            this.txtFileToPrint.Size = new System.Drawing.Size(207, 20);
+            this.txtFileToPrint.Size = new System.Drawing.Size(218, 20);
             this.txtFileToPrint.TabIndex = 8;
             // 
             // notifyIcon1
@@ -128,7 +130,7 @@ namespace SmartPrintForm
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(313, 217);
+            this.button1.Location = new System.Drawing.Point(323, 253);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(45, 23);
             this.button1.TabIndex = 7;
@@ -140,7 +142,7 @@ namespace SmartPrintForm
             // 
             this.lblPrinter.AutoSize = true;
             this.lblPrinter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrinter.Location = new System.Drawing.Point(18, 75);
+            this.lblPrinter.Location = new System.Drawing.Point(12, 111);
             this.lblPrinter.Name = "lblPrinter";
             this.lblPrinter.Size = new System.Drawing.Size(95, 13);
             this.lblPrinter.TabIndex = 9;
@@ -150,7 +152,7 @@ namespace SmartPrintForm
             // 
             this.lblPaperBin.AutoSize = true;
             this.lblPaperBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaperBin.Location = new System.Drawing.Point(17, 118);
+            this.lblPaperBin.Location = new System.Drawing.Point(12, 154);
             this.lblPaperBin.Name = "lblPaperBin";
             this.lblPaperBin.Size = new System.Drawing.Size(109, 13);
             this.lblPaperBin.TabIndex = 11;
@@ -160,7 +162,7 @@ namespace SmartPrintForm
             // 
             this.lblPaperName.AutoSize = true;
             this.lblPaperName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPaperName.Location = new System.Drawing.Point(18, 160);
+            this.lblPaperName.Location = new System.Drawing.Point(12, 196);
             this.lblPaperName.Name = "lblPaperName";
             this.lblPaperName.Size = new System.Drawing.Size(123, 13);
             this.lblPaperName.TabIndex = 13;
@@ -168,7 +170,7 @@ namespace SmartPrintForm
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(143, 271);
+            this.button2.Location = new System.Drawing.Point(142, 307);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(98, 39);
             this.button2.TabIndex = 15;
@@ -182,36 +184,58 @@ namespace SmartPrintForm
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(154, 34);
+            this.textBox1.Location = new System.Drawing.Point(142, 70);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(98, 20);
+            this.textBox1.Size = new System.Drawing.Size(75, 20);
             this.textBox1.TabIndex = 16;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(17, 38);
+            this.label1.Location = new System.Drawing.Point(12, 73);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 13);
+            this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 17;
-            this.label1.Text = "Corriendo en el puerto:";
+            this.label1.Text = "Change Port:";
             // 
             // btnChangePort
             // 
-            this.btnChangePort.Location = new System.Drawing.Point(258, 33);
+            this.btnChangePort.Location = new System.Drawing.Point(223, 68);
             this.btnChangePort.Name = "btnChangePort";
-            this.btnChangePort.Size = new System.Drawing.Size(75, 23);
+            this.btnChangePort.Size = new System.Drawing.Size(63, 23);
             this.btnChangePort.TabIndex = 18;
             this.btnChangePort.Text = "Change";
             this.btnChangePort.UseVisualStyleBackColor = true;
             this.btnChangePort.Click += new System.EventHandler(this.btnChangePort_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Web Service Listening On:";
+            // 
+            // lblUrls
+            // 
+            this.lblUrls.AutoSize = true;
+            this.lblUrls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUrls.Location = new System.Drawing.Point(168, 27);
+            this.lblUrls.Name = "lblUrls";
+            this.lblUrls.Size = new System.Drawing.Size(16, 13);
+            this.lblUrls.TabIndex = 20;
+            this.lblUrls.Text = "...";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 328);
+            this.ClientSize = new System.Drawing.Size(382, 376);
+            this.Controls.Add(this.lblUrls);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnChangePort);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
@@ -259,6 +283,8 @@ namespace SmartPrintForm
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnChangePort;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblUrls;
     }
 }
 

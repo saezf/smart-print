@@ -544,6 +544,7 @@
     <Compile Include="IniFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\FileDownload.cs" />
     <Compile Include="Util\Functions.cs" />

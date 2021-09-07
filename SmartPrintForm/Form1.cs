@@ -32,6 +32,9 @@ namespace SmartPrintForm
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string urls = ConfigurationManager.AppSettings["urls"];
+            lblUrls.Text = urls;
+
             string puerto = ConfigurationManager.AppSettings["httpPort"];
             textBox1.Text = puerto;
 
@@ -197,7 +200,7 @@ namespace SmartPrintForm
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             MessageBoxButtons buttons = MessageBoxButtons.OKCancel;
-            DialogResult dialogResult = MessageBox.Show("The application will close", "Close", buttons, MessageBoxIcon.Information);
+            DialogResult dialogResult = MessageBox.Show("¿Desea cerrar el web service?", "Close", buttons, MessageBoxIcon.Information);
 
             if (dialogResult == DialogResult.Cancel)
             {
