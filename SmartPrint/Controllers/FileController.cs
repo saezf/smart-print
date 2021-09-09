@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartPrint.Util;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartPrint.Controllers
 {
@@ -12,7 +8,6 @@ namespace SmartPrint.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
-
         [HttpGet]
         public ActionResult GetPdfFromUrl(string url)
         {
@@ -26,6 +21,5 @@ namespace SmartPrint.Controllers
             Functions.Print();
             return Ok("File sent to printer");
         }
-
     }
 }

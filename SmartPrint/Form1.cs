@@ -1,14 +1,8 @@
 ﻿using SmartPrint.Util;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
 using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -209,10 +203,6 @@ namespace SmartPrint
             string newHttpPort = txtHttpPort.Text.Trim();
             string newHttpsPort = txtHttpsPort.Text.Trim();
 
-            if ((int.Parse(newHttpPort) > 0 || int.Parse(newHttpPort) <= 65535) && (int.Parse(newHttpsPort) > 0 || int.Parse(newHttpsPort) <= 65535))
-            {
-
-
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
 
@@ -237,27 +227,13 @@ namespace SmartPrint
                 xmlDoc.Save(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
                 ConfigurationManager.RefreshSection("appSettings");
                 MessageBox.Show("Se cambió el puerto. Los cambios surtirán efecto la próxima vez que inicie el servicio");
-
-            }
-            else { MessageBox.Show("Puerto fuera de rango"); }
         }
 
         private void txtHttpPort_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //var valor = int.Parse( txtHttpPort.Text );
-
             if (Char.IsDigit(e.KeyChar))
             {
                 e.Handled = false;
-                //if (valor > 1 || valor <= 65535)
-                //{
-                //    e.Handled = false;
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Fuera de Rango");
-                //    e.Handled = true;
-                //}
             }
             else if (Char.IsControl(e.KeyChar))
             {
