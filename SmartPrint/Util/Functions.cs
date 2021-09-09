@@ -1,13 +1,14 @@
-﻿using System;
+﻿using PdfiumViewer;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using PdfiumViewer;
 
-namespace SmartPrintForm.Util
+namespace SmartPrint.Util
 {
     class Functions
     {
@@ -79,9 +80,43 @@ namespace SmartPrintForm.Util
                         printDocument.Print();
                     }
                 }
+
                 //File.Delete(fileToPrint);
                 settings.Write("FileToPrint", "", "Document");
             }
         }
+
+        public static void downloadFileToSpecificPath(string strURLFile, string strPathToSave)
+        {
+            try
+            {
+                // Se valida que la URL no esté en blanco.
+                if (String.IsNullOrEmpty(strURLFile))
+                {
+                    // Se retorna un mensaje de error al usuario.
+                    throw new ArgumentNullException("La dirección URL del documento es nula o se encuentra en blanco.");
+                }
+
+                // Se valida que la ruta física no esté en blanco.
+                if (String.IsNullOrEmpty(strPathToSave))
+                {
+                    // Se retorna un mensaje de error al usuario.
+                    throw new ArgumentNullException("La ruta para almacenar el documento es nula o se encuentra en blanco.");
+                }
+
+                // Se descargar el archivo indicado en la ruta específicada.
+                using (WebClient client = new WebClient())
+                {
+                    client.DownloadFile(strURLFile, strPathToSave);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // Se retorna la excepción al cliente.
+                throw ex;
+            }
+        }
+
     }
 }

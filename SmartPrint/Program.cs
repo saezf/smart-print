@@ -1,14 +1,14 @@
-﻿using System;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
 
-namespace SmartPrintForm
+namespace SmartPrint
 {
     static class Program
     {
@@ -18,7 +18,7 @@ namespace SmartPrintForm
         static string httpUrl = String.Concat("http://localhost:", httpPort);
 
         static string httpsPort = ConfigurationManager.AppSettings["httpsPort"];
-        static string httpsUrl = String.Concat("http://0.0.0.0:", httpsPort);
+        static string httpsUrl = String.Concat("https://localhost:", httpsPort);
 
         [STAThread]
         public static void Main(string[] args)
@@ -26,11 +26,11 @@ namespace SmartPrintForm
             CreateWebHostBuilder(args).Build().RunAsync();
             escribirUrlsEnAppConfig(httpUrl, httpsUrl);
 
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm = new Form1();
             Application.Run(MainForm);
-
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -41,7 +41,7 @@ namespace SmartPrintForm
         public static void escribirUrlsEnAppConfig(string http, string https)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
 
             foreach (XmlElement element in xmlDoc.DocumentElement)
             {
@@ -51,13 +51,13 @@ namespace SmartPrintForm
                     {
                         if (node.Attributes[0].Value == "urls")
                         {
-                            node.Attributes[1].Value = String.Concat(http," | ",https);
+                            node.Attributes[1].Value = String.Concat(http, " | ", https);
                         }
                     }
                 }
             }
 
-            xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            xmlDoc.Save(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
             ConfigurationManager.RefreshSection("appSettings");
         }
     }
