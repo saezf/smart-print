@@ -2,6 +2,7 @@
 using System;
 using System.Drawing.Printing;
 using System.Net;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SmartPrint.Util
 {
@@ -77,7 +78,34 @@ namespace SmartPrint.Util
                 }
 
                 //File.Delete(fileToPrint);
-                settings.Write("FileToPrint", "", "Document");
+                settings.Write("FileToPrint","", "Document");
+            }
+        }
+
+        public static bool URLExists(string url)
+        {
+            try
+            {
+            //Creating the HttpWebRequest
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; 
+            //Setting the Request method HEAD, you can also use GET too.
+            request.Method = "HEAD"; 
+            //Getting the Web Response.
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //Returns TRUE if the Status code == 200
+                if (response.ContentType.Equals(Application.Pdf)){
+                    return (response.StatusCode == HttpStatusCode.OK);
+                }
+                else
+                {
+                    return (response.StatusCode == HttpStatusCode.BadRequest);
+                }
+            }
+            catch (Exception)
+            {
+            //Any exception will returns false.
+            return false;
+
             }
         }
 
@@ -85,6 +113,7 @@ namespace SmartPrint.Util
         {
             try
             {
+                /*
                 // Se valida que la URL no esté en blanco.
                 if (String.IsNullOrEmpty(strURLFile))
                 {
@@ -98,7 +127,7 @@ namespace SmartPrint.Util
                     // Se retorna un mensaje de error al usuario.
                     throw new ArgumentNullException("La ruta para almacenar el documento es nula o se encuentra en blanco.");
                 }
-
+                */
                 // Se descargar el archivo indicado en la ruta específicada.
                 using (WebClient client = new WebClient())
                 {
@@ -106,10 +135,10 @@ namespace SmartPrint.Util
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Se retorna la excepción al cliente.
-                throw ex;
+                throw;
             }
         }
 

@@ -58,16 +58,18 @@ namespace SmartPrint
             // lblUrlsTitle
             // 
             this.lblUrlsTitle.AutoSize = true;
+            this.lblUrlsTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUrlsTitle.Location = new System.Drawing.Point(13, 13);
             this.lblUrlsTitle.Name = "lblUrlsTitle";
-            this.lblUrlsTitle.Size = new System.Drawing.Size(139, 15);
+            this.lblUrlsTitle.Size = new System.Drawing.Size(148, 15);
             this.lblUrlsTitle.TabIndex = 0;
             this.lblUrlsTitle.Text = "Web Service listening on:";
             // 
             // lblUrlsText
             // 
             this.lblUrlsText.AutoSize = true;
-            this.lblUrlsText.Location = new System.Drawing.Point(157, 13);
+            this.lblUrlsText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUrlsText.Location = new System.Drawing.Point(167, 13);
             this.lblUrlsText.Name = "lblUrlsText";
             this.lblUrlsText.Size = new System.Drawing.Size(16, 15);
             this.lblUrlsText.TabIndex = 1;
@@ -85,7 +87,7 @@ namespace SmartPrint
             // lblPinter
             // 
             this.lblPinter.AutoSize = true;
-            this.lblPinter.Location = new System.Drawing.Point(12, 79);
+            this.lblPinter.Location = new System.Drawing.Point(12, 69);
             this.lblPinter.Name = "lblPinter";
             this.lblPinter.Size = new System.Drawing.Size(86, 15);
             this.lblPinter.TabIndex = 3;
@@ -94,25 +96,25 @@ namespace SmartPrint
             // lblPaperBin
             // 
             this.lblPaperBin.AutoSize = true;
-            this.lblPaperBin.Location = new System.Drawing.Point(12, 108);
+            this.lblPaperBin.Location = new System.Drawing.Point(12, 98);
             this.lblPaperBin.Name = "lblPaperBin";
-            this.lblPaperBin.Size = new System.Drawing.Size(98, 15);
+            this.lblPaperBin.Size = new System.Drawing.Size(101, 15);
             this.lblPaperBin.TabIndex = 4;
-            this.lblPaperBin.Text = "Change PaperBin";
+            this.lblPaperBin.Text = "Change Paper Bin";
             // 
             // lblPaperName
             // 
             this.lblPaperName.AutoSize = true;
-            this.lblPaperName.Location = new System.Drawing.Point(12, 137);
+            this.lblPaperName.Location = new System.Drawing.Point(12, 127);
             this.lblPaperName.Name = "lblPaperName";
-            this.lblPaperName.Size = new System.Drawing.Size(113, 15);
+            this.lblPaperName.Size = new System.Drawing.Size(116, 15);
             this.lblPaperName.TabIndex = 5;
-            this.lblPaperName.Text = "Change PaperName";
+            this.lblPaperName.Text = "Change Paper Name";
             // 
             // lblFile
             // 
             this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(12, 175);
+            this.lblFile.Location = new System.Drawing.Point(12, 156);
             this.lblFile.Name = "lblFile";
             this.lblFile.Size = new System.Drawing.Size(68, 15);
             this.lblFile.TabIndex = 6;
@@ -120,7 +122,7 @@ namespace SmartPrint
             // 
             // txtHttpPort
             // 
-            this.txtHttpPort.Location = new System.Drawing.Point(157, 37);
+            this.txtHttpPort.Location = new System.Drawing.Point(167, 38);
             this.txtHttpPort.Name = "txtHttpPort";
             this.txtHttpPort.Size = new System.Drawing.Size(86, 23);
             this.txtHttpPort.TabIndex = 7;
@@ -130,7 +132,7 @@ namespace SmartPrint
             // cbxPrinter
             // 
             this.cbxPrinter.FormattingEnabled = true;
-            this.cbxPrinter.Location = new System.Drawing.Point(157, 76);
+            this.cbxPrinter.Location = new System.Drawing.Point(167, 67);
             this.cbxPrinter.Name = "cbxPrinter";
             this.cbxPrinter.Size = new System.Drawing.Size(181, 23);
             this.cbxPrinter.TabIndex = 8;
@@ -139,7 +141,7 @@ namespace SmartPrint
             // cbxPaperBin
             // 
             this.cbxPaperBin.FormattingEnabled = true;
-            this.cbxPaperBin.Location = new System.Drawing.Point(157, 105);
+            this.cbxPaperBin.Location = new System.Drawing.Point(167, 96);
             this.cbxPaperBin.Name = "cbxPaperBin";
             this.cbxPaperBin.Size = new System.Drawing.Size(181, 23);
             this.cbxPaperBin.TabIndex = 9;
@@ -148,7 +150,7 @@ namespace SmartPrint
             // cbxPaperName
             // 
             this.cbxPaperName.FormattingEnabled = true;
-            this.cbxPaperName.Location = new System.Drawing.Point(157, 134);
+            this.cbxPaperName.Location = new System.Drawing.Point(167, 125);
             this.cbxPaperName.Name = "cbxPaperName";
             this.cbxPaperName.Size = new System.Drawing.Size(181, 23);
             this.cbxPaperName.TabIndex = 10;
@@ -156,7 +158,7 @@ namespace SmartPrint
             // 
             // txtHttpsPort
             // 
-            this.txtHttpsPort.Location = new System.Drawing.Point(252, 37);
+            this.txtHttpsPort.Location = new System.Drawing.Point(262, 38);
             this.txtHttpsPort.Name = "txtHttpsPort";
             this.txtHttpsPort.Size = new System.Drawing.Size(86, 23);
             this.txtHttpsPort.TabIndex = 11;
@@ -165,7 +167,7 @@ namespace SmartPrint
             // 
             // txtFile
             // 
-            this.txtFile.Location = new System.Drawing.Point(157, 172);
+            this.txtFile.Location = new System.Drawing.Point(167, 154);
             this.txtFile.Name = "txtFile";
             this.txtFile.ReadOnly = true;
             this.txtFile.Size = new System.Drawing.Size(181, 23);
@@ -173,7 +175,7 @@ namespace SmartPrint
             // 
             // btnChange
             // 
-            this.btnChange.Location = new System.Drawing.Point(344, 37);
+            this.btnChange.Location = new System.Drawing.Point(354, 38);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(75, 23);
             this.btnChange.TabIndex = 13;
@@ -183,7 +185,7 @@ namespace SmartPrint
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(344, 172);
+            this.btnOpen.Location = new System.Drawing.Point(354, 154);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(75, 23);
             this.btnOpen.TabIndex = 14;
@@ -193,11 +195,11 @@ namespace SmartPrint
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(182, 225);
+            this.btnPrint.Location = new System.Drawing.Point(167, 202);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 23);
             this.btnPrint.TabIndex = 15;
-            this.btnPrint.Text = "Print";
+            this.btnPrint.Text = "Print File";
             this.btnPrint.UseVisualStyleBackColor = true;
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
@@ -239,7 +241,7 @@ namespace SmartPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 269);
+            this.ClientSize = new System.Drawing.Size(445, 247);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnChange);
@@ -258,6 +260,8 @@ namespace SmartPrint
             this.Controls.Add(this.lblUrlsTitle);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(461, 286);
+            this.MinimumSize = new System.Drawing.Size(461, 286);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Print";

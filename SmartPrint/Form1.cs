@@ -1,6 +1,5 @@
 ﻿using SmartPrint.Util;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing.Printing;
 using System.Windows.Forms;
@@ -15,7 +14,6 @@ namespace SmartPrint
         private static string selectedPaperName;
         private static string fileToPrint;
         private static PrinterSettings printerSettings;
-        //private static PageSettings pageSettings;
 
         IniFile settings = new IniFile("Settings.ini");
 
@@ -40,16 +38,13 @@ namespace SmartPrint
             printerSettings.PrinterName = settings.Read("printerName", "Printer");
 
             // Cargar combobox printers
-            List<string> printer = new List<string>();
             for (int i = 0; i < PrinterSettings.InstalledPrinters.Count; i++)
             {
-                printer.Add(PrinterSettings.InstalledPrinters[i]);
+                cbxPrinter.Items.Add(PrinterSettings.InstalledPrinters[i]);
             }
-            cbxPrinter.DataSource = printer;
             cbxPrinter.Text = settings.Read("printerName", "Printer");
 
             // cargar combo box papersource
-            List<string> paperbin = new List<string>();
             selectedPaperBin = cbxPaperBin.Text;
             bool skipPaperSource = printerSettings.PaperSources.Count == 0;
             if (skipPaperSource)
@@ -60,23 +55,20 @@ namespace SmartPrint
             {
                 for (int i = 0; i < printerSettings.PaperSources.Count; i++)
                 {
-                    paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
+                     cbxPaperBin.Items.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
                 }
                 selectedPaperBin = cbxPaperBin.Text;
             }
-            cbxPaperBin.DataSource = paperbin;
             cbxPaperBin.Text = settings.Read("PaperBin", "Printer");
 
-            // cargar combobox paper name
-            List<string> paper = new List<string>();
+            //cargar combobox paper name
             for (int i = 0; i < printerSettings.PaperSizes.Count; i++)
             {
-                paper.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
+                cbxPaperName.Items.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
             }
-            cbxPaperName.DataSource = paper;
             cbxPaperName.Text = settings.Read("PaperName", "Printer");
 
-            ////cargar archivo
+            //cargar archivo
             txtFile.Text = settings.Read("FileToPrint", "Document");
         }
 
@@ -93,28 +85,30 @@ namespace SmartPrint
             bool skipPaperSourceP = printerSettings.PaperSources.Count == 0;
             if (skipPaperSourceP)
             {
-                selectedPaperBin = "DEFAULT";
-                cbxPaperBin.Text = selectedPaperBin;
+                cbxPaperBin.Items.Clear();
+                //cbxPaperBin.Items.Add("DEFAULT");
+                cbxPaperBin.Text = "DEFAULT";
+                selectedPaperBin = cbxPaperBin.Text;
+                settings.Write("PaperBin", selectedPaperBin, "Printer");
+            }
+            else
+            {
+                //cargar de nuevo paper bin
+                cbxPaperBin.Items.Clear();
+                for (int i = 0; i < printerSettings.PaperSources.Count; i++)
+                {
+                    cbxPaperBin.Items.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
+                }
+                selectedPaperBin = cbxPaperBin.Text;
                 settings.Write("PaperBin", selectedPaperBin, "Printer");
             }
 
-            //cargar de nuevo paper bin
-            List<string> paperbin = new List<string>();
-            for (int i = 0; i < printerSettings.PaperSources.Count; i++)
-            {
-                paperbin.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
-            }
-            cbxPaperBin.DataSource = paperbin;
-            selectedPaperBin = cbxPaperBin.Text;
-            settings.Write("PaperBin", selectedPaperBin, "Printer");
-
             // cargar de nuevo paper name
-            List<string> paper = new List<string>();
+            cbxPaperName.Items.Clear();
             for (int i = 0; i < printerSettings.PaperSizes.Count; i++)
             {
-                paper.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
+                cbxPaperName.Items.Add(printerSettings.PaperSizes[i].PaperName.ToUpper());
             }
-            cbxPaperName.DataSource = paper;
             selectedPaperName = cbxPaperName.Text;
             settings.Write("PaperName", selectedPaperName, "Printer");
             //cbxPaperName.Text = settings.Read("PaperName", "Printer");
