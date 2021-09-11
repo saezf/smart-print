@@ -55,7 +55,7 @@ namespace SmartPrint
             {
                 for (int i = 0; i < printerSettings.PaperSources.Count; i++)
                 {
-                     cbxPaperBin.Items.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
+                    cbxPaperBin.Items.Add(printerSettings.PaperSources[i].SourceName.ToUpper());
                 }
                 selectedPaperBin = cbxPaperBin.Text;
             }
@@ -189,7 +189,19 @@ namespace SmartPrint
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            Functions.Print();
+            var fileToPrint = settings.Read("FileToPrint", "Document");
+            if (Functions.existFileLocal(fileToPrint))
+            {
+                Functions.Print(fileToPrint);
+                txtFile.Text = settings.Read("FileToPrint", "Document");
+            }
+            else
+            {
+                MessageBox.Show("Archivo no encontrado");
+                settings.Write("FileToPrint", "", "Document");
+                txtFile.Text = settings.Read("FileToPrint", "Document");
+            }
+
         }
 
         private void btnChange_Click(object sender, EventArgs e)
@@ -197,30 +209,30 @@ namespace SmartPrint
             string newHttpPort = txtHttpPort.Text.Trim();
             string newHttpsPort = txtHttpsPort.Text.Trim();
 
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
 
-                foreach (XmlElement element in xmlDoc.DocumentElement)
+            foreach (XmlElement element in xmlDoc.DocumentElement)
+            {
+                if (element.Name.Equals("appSettings"))
                 {
-                    if (element.Name.Equals("appSettings"))
+                    foreach (XmlNode node in element.ChildNodes)
                     {
-                        foreach (XmlNode node in element.ChildNodes)
+                        if (node.Attributes[0].Value == "httpPort")
                         {
-                            if (node.Attributes[0].Value == "httpPort")
-                            {
-                                node.Attributes[1].Value = newHttpPort;
-                            }
-                            if (node.Attributes[0].Value == "httpsPort")
-                            {
-                                node.Attributes[1].Value = newHttpsPort;
-                            }
+                            node.Attributes[1].Value = newHttpPort;
+                        }
+                        if (node.Attributes[0].Value == "httpsPort")
+                        {
+                            node.Attributes[1].Value = newHttpsPort;
                         }
                     }
                 }
-                //xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
-                xmlDoc.Save(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
-                ConfigurationManager.RefreshSection("appSettings");
-                MessageBox.Show("Se cambió el puerto. Los cambios surtirán efecto la próxima vez que inicie el servicio");
+            }
+            //xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+            xmlDoc.Save(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
+            ConfigurationManager.RefreshSection("appSettings");
+            MessageBox.Show("Se cambió el puerto. Los cambios surtirán efecto la próxima vez que inicie el servicio");
         }
 
         private void txtHttpPort_KeyPress(object sender, KeyPressEventArgs e)
@@ -265,7 +277,8 @@ namespace SmartPrint
 
         private void txtHttpPort_TextChanged(object sender, EventArgs e)
         {
-            if (txtHttpPort.Text.Length == 1)            {
+            if (txtHttpPort.Text.Length == 1)
+            {
                 if (txtHttpPort.Text[0] == '0')
                 {
                     txtHttpPort.Clear();
@@ -273,7 +286,7 @@ namespace SmartPrint
             }
             else if (txtHttpPort.Text.Length > 1)
             {
-                if (Convert.ToInt32( txtHttpPort.Text) > 65535)
+                if (Convert.ToInt32(txtHttpPort.Text) > 65535)
                 {
                     MessageBox.Show("Puerto fuera de rango");
                     txtHttpPort.Clear();

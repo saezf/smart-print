@@ -1,6 +1,7 @@
 ﻿using PdfiumViewer;
 using System;
 using System.Drawing.Printing;
+using System.IO;
 using System.Net;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -8,7 +9,7 @@ namespace SmartPrint.Util
 {
     class Functions
     {
-        public static void Print()
+        public static void Print(string fileToPrint)
         {
             PrinterSettings printerSettings = new PrinterSettings();
             PageSettings pageSettings = new PageSettings();
@@ -17,7 +18,7 @@ namespace SmartPrint.Util
             var selectedPrinter = settings.Read("printerName", "Printer");
             var selectedPaperBin = settings.Read("PaperBin", "Printer");
             var selectedPaperName = settings.Read("PaperName", "Printer");
-            var fileToPrint = settings.Read("FileToPrint", "Document");
+            //var fileToPrint = settings.Read("FileToPrint", "Document");
 
             bool canPrint = true;
 
@@ -76,9 +77,24 @@ namespace SmartPrint.Util
                         printDocument.Print();
                     }
                 }
+                settings.Write("FileToPrint", "", "Document");
+            }
+        }
 
-                //File.Delete(fileToPrint);
-                settings.Write("FileToPrint","", "Document");
+        public static void deleteFile(string filePath)
+        {
+            File.Delete(filePath);
+        }
+
+        public static bool existFileLocal(string fileParh)
+        {
+            if (File.Exists(fileParh))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -86,14 +102,15 @@ namespace SmartPrint.Util
         {
             try
             {
-            //Creating the HttpWebRequest
-            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest; 
-            //Setting the Request method HEAD, you can also use GET too.
-            request.Method = "HEAD"; 
-            //Getting the Web Response.
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //Creating the HttpWebRequest
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                //Setting the Request method HEAD, you can also use GET too.
+                request.Method = "HEAD";
+                //Getting the Web Response.
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
                 //Returns TRUE if the Status code == 200
-                if (response.ContentType.Equals(Application.Pdf)){
+                if (response.ContentType.Equals(Application.Pdf))
+                {
                     return (response.StatusCode == HttpStatusCode.OK);
                 }
                 else
@@ -103,8 +120,8 @@ namespace SmartPrint.Util
             }
             catch (Exception)
             {
-            //Any exception will returns false.
-            return false;
+                //Any exception will returns false.
+                return false;
 
             }
         }
@@ -113,27 +130,10 @@ namespace SmartPrint.Util
         {
             try
             {
-                /*
-                // Se valida que la URL no esté en blanco.
-                if (String.IsNullOrEmpty(strURLFile))
-                {
-                    // Se retorna un mensaje de error al usuario.
-                    throw new ArgumentNullException("La dirección URL del documento es nula o se encuentra en blanco.");
-                }
-
-                // Se valida que la ruta física no esté en blanco.
-                if (String.IsNullOrEmpty(strPathToSave))
-                {
-                    // Se retorna un mensaje de error al usuario.
-                    throw new ArgumentNullException("La ruta para almacenar el documento es nula o se encuentra en blanco.");
-                }
-                */
-                // Se descargar el archivo indicado en la ruta específicada.
                 using (WebClient client = new WebClient())
                 {
                     client.DownloadFile(strURLFile, strPathToSave);
                 }
-
             }
             catch (Exception)
             {

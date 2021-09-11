@@ -16,16 +16,13 @@ namespace SmartPrint.Controllers
                 var fileDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 var fileToPrint = fileDirectory + @"\tmp.pdf";
                 Functions.downloadFileToSpecificPath(url, fileToPrint);
-
-                var settings = new IniFile("Settings.ini");
-                settings.Write("FileToPrint", fileToPrint, "Document");
-
-                Functions.Print();
+                Functions.Print(fileToPrint);
+                Functions.deleteFile(fileToPrint);
                 return Ok("File sent to printer");
             }
             else
             {
-                return BadRequest();
+                return BadRequest("Invalid url");
             }
 
         }
