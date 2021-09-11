@@ -235,7 +235,6 @@ namespace SmartPrint
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "Archivos PDF (*.pdf)|*.pdf";
             // 
             // Form1
