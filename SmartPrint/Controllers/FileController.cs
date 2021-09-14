@@ -4,11 +4,11 @@ using System;
 
 namespace SmartPrint.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class FileController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("pdf")]
         public ActionResult GetPdfFromUrl(string url)
         {
             if (Functions.URLExists(url))

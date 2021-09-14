@@ -58,7 +58,7 @@ namespace SmartPrint
             // lblUrlsTitle
             // 
             this.lblUrlsTitle.AutoSize = true;
-            this.lblUrlsTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUrlsTitle.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUrlsTitle.Location = new System.Drawing.Point(13, 13);
             this.lblUrlsTitle.Name = "lblUrlsTitle";
             this.lblUrlsTitle.Size = new System.Drawing.Size(148, 15);
@@ -68,7 +68,7 @@ namespace SmartPrint
             // lblUrlsText
             // 
             this.lblUrlsText.AutoSize = true;
-            this.lblUrlsText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUrlsText.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUrlsText.Location = new System.Drawing.Point(167, 13);
             this.lblUrlsText.Name = "lblUrlsText";
             this.lblUrlsText.Size = new System.Drawing.Size(16, 15);
