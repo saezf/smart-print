@@ -11,32 +11,51 @@ namespace SmartPrint
     {
         public static Form1 MainForm { get; private set; }
 
-        static string httpPort = ConfigurationManager.AppSettings["httpPort"];
-        static string httpUrl = String.Concat("http://localhost:", httpPort);
+        static string protocolo = ConfigurationManager.AppSettings["protocolo"];
+        static string puerto = ConfigurationManager.AppSettings["puerto"];
 
-        static string httpsPort = ConfigurationManager.AppSettings["httpsPort"];
-        static string httpsUrl = String.Concat("https://localhost:", httpsPort);
+        static string url;
+
+        static void changeUrl()
+        {
+            if (protocolo.Equals("http"))
+            {
+                url = "http://0.0.0.0:";
+            }
+            else if(protocolo.Equals("https"))
+            {
+                url = "https://0.0.0.0:";
+            }
+        }
 
         [STAThread]
         public static void Main(string[] args)
         {
+            changeUrl();
             CreateWebHostBuilder(args).Build().RunAsync();
-            escribirUrlsEnAppConfig(httpUrl, httpsUrl);
-
+            escribirUrlsEnAppConfig(protocolo);
+           
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm = new Form1();
             Application.Run(MainForm);
         }
-
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseUrls(httpUrl, httpsUrl);
+                .UseStartup<Startup>().UseUrls(String.Concat(url, puerto));
 
-        public static void escribirUrlsEnAppConfig(string http, string https)
+        public static void escribirUrlsEnAppConfig(string protocolo)
         {
+            string urlWrite="";
+            if (protocolo.Equals("http"))
+            {
+                urlWrite = "http://localhost:";
+            }
+            else if (protocolo.Equals("https"))
+            {
+                urlWrite = "https://localhost:";
+            }
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
 
@@ -46,9 +65,9 @@ namespace SmartPrint
                 {
                     foreach (XmlNode node in element.ChildNodes)
                     {
-                        if (node.Attributes[0].Value == "urls")
+                        if (node.Attributes[0].Value == "url")
                         {
-                            node.Attributes[1].Value = String.Concat(http, " | ", https);
+                            node.Attributes[1].Value = String.Concat(urlWrite, puerto);
                         }
                     }
                 }

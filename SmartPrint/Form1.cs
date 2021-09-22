@@ -24,14 +24,14 @@ namespace SmartPrint
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string urls = ConfigurationManager.AppSettings["urls"];
-            lblUrlsText.Text = urls;
+            string url = ConfigurationManager.AppSettings["url"];
+            lblUrlsText.Text = url;
 
-            string httpPort = ConfigurationManager.AppSettings["httpPort"];
-            txtHttpPort.Text = httpPort;
+            string protocolo = ConfigurationManager.AppSettings["protocolo"];
+            cbxPort.Text = protocolo;
 
-            string httpsPort = ConfigurationManager.AppSettings["httpsPort"];
-            txtHttpsPort.Text = httpsPort;
+            string port = ConfigurationManager.AppSettings["puerto"];
+            txtPort.Text = port;
 
             printerSettings = new PrinterSettings();
 
@@ -206,8 +206,8 @@ namespace SmartPrint
 
         private void btnChange_Click(object sender, EventArgs e)
         {
-            string newHttpPort = txtHttpPort.Text.Trim();
-            string newHttpsPort = txtHttpsPort.Text.Trim();
+            string protocolo = cbxPort.Text;
+            string newPort = txtPort.Text.Trim();
 
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath);
@@ -218,13 +218,13 @@ namespace SmartPrint
                 {
                     foreach (XmlNode node in element.ChildNodes)
                     {
-                        if (node.Attributes[0].Value == "httpPort")
+                        if (node.Attributes[0].Value == "protocolo")
                         {
-                            node.Attributes[1].Value = newHttpPort;
+                            node.Attributes[1].Value = protocolo;
                         }
-                        if (node.Attributes[0].Value == "httpsPort")
+                        if (node.Attributes[0].Value == "puerto")
                         {
-                            node.Attributes[1].Value = newHttpsPort;
+                            node.Attributes[1].Value = newPort;
                         }
                     }
                 }
@@ -235,7 +235,26 @@ namespace SmartPrint
             MessageBox.Show("Se cambió el puerto. Los cambios surtirán efecto la próxima vez que inicie el servicio");
         }
 
-        private void txtHttpPort_KeyPress(object sender, KeyPressEventArgs e)
+        private void txtPort_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPort.Text.Length == 1)
+            {
+                if (txtPort.Text[0] == '0')
+                {
+                    txtPort.Clear();
+                }
+            }
+            else if (txtPort.Text.Length > 1)
+            {
+                if (Convert.ToInt32(txtPort.Text) > 65535)
+                {
+                    MessageBox.Show("Puerto fuera de rango");
+                    txtPort.Clear();
+                }
+            }
+        }
+
+        private void txtPort_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsDigit(e.KeyChar))
             {
@@ -247,69 +266,11 @@ namespace SmartPrint
             }
             else if (Char.IsSeparator(e.KeyChar))
             {
-                e.Handled = true;
-            }
-            else
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void txtHttpsPort_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsSeparator(e.KeyChar))
-            {
                 e.Handled = false;
             }
             else
             {
                 e.Handled = true;
-            }
-        }
-
-        private void txtHttpPort_TextChanged(object sender, EventArgs e)
-        {
-            if (txtHttpPort.Text.Length == 1)
-            {
-                if (txtHttpPort.Text[0] == '0')
-                {
-                    txtHttpPort.Clear();
-                }
-            }
-            else if (txtHttpPort.Text.Length > 1)
-            {
-                if (Convert.ToInt32(txtHttpPort.Text) > 65535)
-                {
-                    MessageBox.Show("Puerto fuera de rango");
-                    txtHttpPort.Clear();
-                }
-            }
-        }
-
-        private void txtHttpsPort_TextChanged(object sender, EventArgs e)
-        {
-            if (txtHttpsPort.Text.Length == 1)
-            {
-                if (txtHttpsPort.Text[0] == '0')
-                {
-                    txtHttpsPort.Clear();
-                }
-            }
-            else if (txtHttpsPort.Text.Length > 1)
-            {
-                if (Convert.ToInt32(txtHttpsPort.Text) > 65535)
-                {
-                    MessageBox.Show("Puerto fuera de rango");
-                    txtHttpsPort.Clear();
-                }
             }
         }
     }
