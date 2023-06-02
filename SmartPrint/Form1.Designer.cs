@@ -38,11 +38,10 @@ namespace SmartPrint
             this.lblPaperBin = new System.Windows.Forms.Label();
             this.lblPaperName = new System.Windows.Forms.Label();
             this.lblFile = new System.Windows.Forms.Label();
-            this.txtHttpPort = new System.Windows.Forms.TextBox();
             this.cbxPrinter = new System.Windows.Forms.ComboBox();
             this.cbxPaperBin = new System.Windows.Forms.ComboBox();
             this.cbxPaperName = new System.Windows.Forms.ComboBox();
-            this.txtHttpsPort = new System.Windows.Forms.TextBox();
+            this.txtPort = new System.Windows.Forms.TextBox();
             this.txtFile = new System.Windows.Forms.TextBox();
             this.btnChange = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -52,6 +51,7 @@ namespace SmartPrint
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.cbxPort = new System.Windows.Forms.ComboBox();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +61,7 @@ namespace SmartPrint
             this.lblUrlsTitle.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUrlsTitle.Location = new System.Drawing.Point(13, 13);
             this.lblUrlsTitle.Name = "lblUrlsTitle";
-            this.lblUrlsTitle.Size = new System.Drawing.Size(148, 15);
+            this.lblUrlsTitle.Size = new System.Drawing.Size(138, 13);
             this.lblUrlsTitle.TabIndex = 0;
             this.lblUrlsTitle.Text = "Web Service listening on:";
             // 
@@ -71,7 +71,7 @@ namespace SmartPrint
             this.lblUrlsText.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUrlsText.Location = new System.Drawing.Point(167, 13);
             this.lblUrlsText.Name = "lblUrlsText";
-            this.lblUrlsText.Size = new System.Drawing.Size(16, 15);
+            this.lblUrlsText.Size = new System.Drawing.Size(16, 13);
             this.lblUrlsText.TabIndex = 1;
             this.lblUrlsText.Text = "...";
             // 
@@ -80,9 +80,9 @@ namespace SmartPrint
             this.lblPorts.AutoSize = true;
             this.lblPorts.Location = new System.Drawing.Point(12, 41);
             this.lblPorts.Name = "lblPorts";
-            this.lblPorts.Size = new System.Drawing.Size(78, 15);
+            this.lblPorts.Size = new System.Drawing.Size(73, 15);
             this.lblPorts.TabIndex = 2;
-            this.lblPorts.Text = "Change Ports";
+            this.lblPorts.Text = "Change Port";
             // 
             // lblPinter
             // 
@@ -120,15 +120,6 @@ namespace SmartPrint
             this.lblFile.TabIndex = 6;
             this.lblFile.Text = "File To Print";
             // 
-            // txtHttpPort
-            // 
-            this.txtHttpPort.Location = new System.Drawing.Point(167, 38);
-            this.txtHttpPort.Name = "txtHttpPort";
-            this.txtHttpPort.Size = new System.Drawing.Size(86, 23);
-            this.txtHttpPort.TabIndex = 7;
-            this.txtHttpPort.TextChanged += new System.EventHandler(this.txtHttpPort_TextChanged);
-            this.txtHttpPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHttpPort_KeyPress);
-            // 
             // cbxPrinter
             // 
             this.cbxPrinter.FormattingEnabled = true;
@@ -156,14 +147,14 @@ namespace SmartPrint
             this.cbxPaperName.TabIndex = 10;
             this.cbxPaperName.SelectionChangeCommitted += new System.EventHandler(this.cbxPaperName_SelectionChangeCommitted);
             // 
-            // txtHttpsPort
+            // txtPort
             // 
-            this.txtHttpsPort.Location = new System.Drawing.Point(262, 38);
-            this.txtHttpsPort.Name = "txtHttpsPort";
-            this.txtHttpsPort.Size = new System.Drawing.Size(86, 23);
-            this.txtHttpsPort.TabIndex = 11;
-            this.txtHttpsPort.TextChanged += new System.EventHandler(this.txtHttpsPort_TextChanged);
-            this.txtHttpsPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtHttpsPort_KeyPress);
+            this.txtPort.Location = new System.Drawing.Point(262, 38);
+            this.txtPort.Name = "txtPort";
+            this.txtPort.Size = new System.Drawing.Size(86, 23);
+            this.txtPort.TabIndex = 11;
+            this.txtPort.TextChanged += new System.EventHandler(this.txtPort_TextChanged);
+            this.txtPort.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPort_KeyPress);
             // 
             // txtFile
             // 
@@ -237,20 +228,31 @@ namespace SmartPrint
             // 
             this.openFileDialog1.Filter = "Archivos PDF (*.pdf)|*.pdf";
             // 
+            // cbxPort
+            // 
+            this.cbxPort.FormattingEnabled = true;
+            this.cbxPort.Items.AddRange(new object[] {
+            "http",
+            "https"});
+            this.cbxPort.Location = new System.Drawing.Point(167, 38);
+            this.cbxPort.Name = "cbxPort";
+            this.cbxPort.Size = new System.Drawing.Size(89, 23);
+            this.cbxPort.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(445, 247);
+            this.Controls.Add(this.cbxPort);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.txtFile);
-            this.Controls.Add(this.txtHttpsPort);
+            this.Controls.Add(this.txtPort);
             this.Controls.Add(this.cbxPaperName);
             this.Controls.Add(this.cbxPaperBin);
             this.Controls.Add(this.cbxPrinter);
-            this.Controls.Add(this.txtHttpPort);
             this.Controls.Add(this.lblFile);
             this.Controls.Add(this.lblPaperName);
             this.Controls.Add(this.lblPaperBin);
@@ -284,11 +286,10 @@ namespace SmartPrint
         private System.Windows.Forms.Label lblPaperBin;
         private System.Windows.Forms.Label lblPaperName;
         private System.Windows.Forms.Label lblFile;
-        private System.Windows.Forms.TextBox txtHttpPort;
         private System.Windows.Forms.ComboBox cbxPrinter;
         private System.Windows.Forms.ComboBox cbxPaperBin;
         private System.Windows.Forms.ComboBox cbxPaperName;
-        private System.Windows.Forms.TextBox txtHttpsPort;
+        private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnOpen;
@@ -298,6 +299,7 @@ namespace SmartPrint
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ComboBox cbxPort;
     }
 }
 
